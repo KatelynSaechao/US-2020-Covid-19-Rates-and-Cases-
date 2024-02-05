@@ -15,7 +15,9 @@ The second map I created is titled, **[US 2020 Covid-19 Cases](https://katelynsa
 
 ## Map Screenshots
 
-### *Default View of Map 1: US 2020 Covid-19 Rates*
+### *[Default View of Map 1: US 2020 Covid-19 Rates](https://github.com/KatelynSaechao/US-2020-Covid-19-Rates-and-Cases-Maps/blob/c631583024a4bf6baa435ecc77bce78c5d6fcef9/img/default_map1.jpg)*
+
+![Default View of Map 1: US 2020 Covid-19 Rates](https://github.com/KatelynSaechao/US-2020-Covid-19-Rates-and-Cases-Maps/blob/c631583024a4bf6baa435ecc77bce78c5d6fcef9/img/default_map1.jpg)
 
 ### *Interaction View of Map 1: US 2020 Covid-19 Rates*
 
