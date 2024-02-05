@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>US 2020 Covid-19 Cases</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+    <div id="map2"></div>
+    <div id="legend2"></div>
+    <div id="title">
+        US 2020 Covid-19 Cases
+    </div>
+    <div id="author">
+        Created By: Katelyn Saechao
+    </div>
+    <div id="subtitle">
+        Symbols on the map are proportional <br>
+        to the number of Covid-19 cases in <br>
+        each county. Zoom in and click <br>
+        on the dots to see the county, <br>
+        state, and the number of Covid-19 <br>
+        cases in that given area.
+    </div>
+    <script>
+        mapboxgl.accessToken =
+        'pk.eyJ1Ijoia2F0ZXNhZSIsImEiOiJjbHMxNDdnbHUwODdsMmpwNWliYzZzOGdjIn0.eK5A1j3I8VWSkpZhnBV9EA';
+        let map2 = new mapboxgl.Map({
+            container: 'map2', // container ID
+            style: 'mapbox://styles/mapbox/dark-v10', // style URL
+            center: [-102, 37.5], // starting position [lng, lat]
+            zoom: 3.25, // starting zoom
+        });
+        const grades = [5000, 15000, 25000], 
+            colors = ["#ffffb2", "#fd8d3c", "#bd0026"], 
+            radii = [1.75, 5, 7];
+
+        map2.setProjection('albers');
+        //load data to the map as new layers.
+        //map2.on('load', function loadingData() {
+        map2.on('load', () => { //simplifying the function statement: arrow with brackets to define a function
+            // when loading a geojson, there are two steps
+            // add a source of the data and then add the layer out of the source
+            map2.addSource('us-covid-2020-counts', {
+                type: 'geojson',
+                data: 'assets/us-covid-2020-counts.json'
+            });
+            map2.addLayer({
+                'id': 'us-covid-2020-counts-point',
+                'type': 'circle',
+                'source': 'us-covid-2020-counts',
+                'minzoom': 2,
+                'paint': {
+                    // increase the radii of the circle as the zoom level and dbh value increases
+                    'circle-radius': {
+                        'property': 'cases',
+                        'stops': [
+                            [grades[0], radii[0]],
+                            [grades[1], radii[1]],
+                            [grades[2], radii[2]]
+                        ]
+                    },
+                    'circle-color': {
+                        'property': 'cases',
+                        'stops': [
+                            [grades[0], colors[0]],
+                            [grades[1], colors[1]],
+                            [grades[2], colors[2]]
+                        ]
+                    },
+                    'circle-stroke-color': 'white',
+                    'circle-stroke-width': 1,
+                    'circle-opacity': 0.6
+                }
+            });
+            // click on tree to view magnitude in a popup
+            map2.on('click', 'us-covid-2020-counts-point', (event) => {
+                new mapboxgl.Popup()
+                    .setLngLat(event.features[0].geometry.coordinates)
+                    .setHTML(`<strong>County, State:</strong> ${event.features[0].properties.county}, ${event.features[0].properties.state}<br>
+                    <strong>Cases:</strong> ${event.features[0].properties.cases}`)
+                    .addTo(map2);
+            });
+        });
+        // create legend object, it will anchor to the div element with the id legend.
+        const legend2 = document.getElementById('legend2');
+
+        //set up legend grades and labels
+        var labels = ['<strong>Size</strong>'], vbreak;
+        //iterate through grades and create a scaled circle and label for each
+        for (var i = 0; i < grades.length; i++) {
+            vbreak = grades[i];
+            // you need to manually adjust the radius of each dot on the legend 
+            // in order to make sure the legend can be properly referred to the dot on the map.
+            dot_radii = 2 * radii[i];
+            labels.push(
+                '<p class="break"><i class="dot" style="background:' + colors[i] + '; width: ' + dot_radii +
+                'px; height: ' +
+                dot_radii + 'px; "></i> <span class="dot-label" style="top: ' + dot_radii / 2 + 'px;">' + vbreak +
+                '</span></p>');
+
+        }
+
+        const source =
+            '<p style="text-align: right; font-size:10pt">Sources: <a href="https://github.com/nytimes/covid-19-data/blob/43d32dde2f87bd4dafbb7d23f5d9e878124018b8/live/us-counties.csv">New York Times</a> &<a href= https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html> US Census Bureau</a></p>';
+
+        // combine all the html codes.
+        legend2.innerHTML = labels.join('') + source;
+
+    </script>
+</body>
+
+</html>
