@@ -35,12 +35,31 @@ The second map I created is titled, **[US 2020 Covid-19 Cases](https://katelynsa
 ## Primary Functions
 
 ### *Map 1: US 2020 Covid-19 Rates*
+- new mapboxgl.Map
+- geojsonFetch()
+- map.on
+- map.addSource
+- map.addLayer
+- layers.forEach
 
 
 ### *Map 2: US 2020 Covid-19 Cases*
+- new mapboxgl.Map
+- map.on
+- map.addSource
+- map.addLayer
+- for (var i = 0; i < grades.length; i++)
 
 
 ## Libraries in Use
+### *Map 1: US 2020 Covid-19 Rates*
+- https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css
+-https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js
+
+### *Map 2: US 2020 Covid-19 Cases*
+- https://fonts.googleapis.com/css2?family=Open+Sans&display=swap
+- https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css
+- https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js
 
 
 
