@@ -66,7 +66,7 @@ async function geojsonFetch() {
     ];
 
     const legend = document.getElementById('legend');
-    legend.innerHTML = "<b>Covid-19 Rate by County<br>(Number of cases/1000 residents)</b><br><p>Sources: <a href=https://data.census.gov/table/ACSDP5Y2018.DP05?g=0100000US$050000&d=ACS%205-Year%20Estimates%20Data%20Profiles&hidePreview=true>2018 ACS 5 Year Estimate</a> & <a href=https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html> US Census Bureau </p><br>";
+    legend.innerHTML = "<b>Covid-19 Rate by County<br>(Number of cases/1000 residents)</b><br><p>Sources: <a href=https://github.com/nytimes/covid-19-data/blob/43d32dde2f87bd4dafbb7d23f5d9e878124018b8/live/us-counties.csv>The New York Times, <a href=https://data.census.gov/table/ACSDP5Y2018.DP05?g=0100000US$050000&d=ACS%205-Year%20Estimates%20Data%20Profiles&hidePreview=true>2018 ACS 5 Year Estimate</a> & <a href=https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html> US Census Bureau </p><br>";
 
     layers.forEach((layer, i) => {
         const color = colors[i];
